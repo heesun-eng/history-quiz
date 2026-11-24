@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>똑똑 역사 퀴즈</title>
+<style>
+:root{--bg:#fff0f6;--card:#fff;--tx:#2b2b3a;--mut:#8a8aa0;--bd:#f0d4e2;--ac:#ff7aa8;--op:#ffc2d9;--ok:#2f9e63;--okb:#d8f5e5;--no:#d6336c;--nob:#ffe0ea}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;display:flex;justify-content:center}
+.w{width:100%;max-width:560px;padding:16px 16px 48px}
+h1{text-align:center;font-size:24px;margin:8px 0}
+.bub{background:#fff;border:3px solid var(--bd);border-radius:16px;padding:10px 14px;margin:8px 0 14px;font-size:16px}
+button{font:inherit;border:0;cursor:pointer;color:var(--tx)}
+.days{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.day{background:#fff;border:3px solid var(--bd);border-radius:16px;padding:14px 10px;text-align:center;box-shadow:0 4px 0 rgba(0,0,0,.08)}
+.day b{display:block;font-size:20px}
+.day small{display:block;color:var(--mut);margin:4px 0;font-size:13px}
+.day .bd{font-size:14px;color:var(--ok);font-weight:700}
+.top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.back{background:#fff;border:3px solid var(--bd);border-radius:12px;padding:8px 12px}
+.top h2{font-size:18px;margin:0}
+.card{background:#fff;border:3px solid var(--bd);border-radius:16px;padding:14px;margin-bottom:12px}
+.card.ok{border-color:var(--ok)}.card.no{border-color:var(--no)}
+.qt{font-size:17px;font-weight:700;margin-bottom:10px;line-height:1.4}
+.opt{display:block;width:100%;text-align:left;background:#faf5ff;border:2px solid var(--bd);border-radius:12px;padding:11px 12px;margin-top:8px;font-size:16px}
+.opt.sel{background:var(--op);border-color:var(--ac)}
+.opt.right{background:var(--okb);border-color:var(--ok);font-weight:700}
+.opt.wrong{background:var(--nob);border-color:var(--no)}
+.res{margin-top:10px;font-weight:700}
+.res.ok{color:var(--ok)}.res.no{color:var(--no)}
+.big{width:100%;background:var(--ac);color:#fff;font-size:20px;padding:14px;border-radius:16px;box-shadow:0 4px 0 rgba(0,0,0,.15)}
+.sum{background:#fff;border:3px solid var(--ac);border-radius:20px;padding:16px;text-align:center;margin-bottom:14px}
+.sum .sc{font-size:40px;font-weight:700}
+.sum .st{font-size:34px}
+.row{display:flex;gap:8px;margin-top:10px}.row button{flex:1;background:#fff;border:3px solid var(--bd);border-radius:14px;padding:12px;font-size:16px}
+</style>
+</head>
+<body>
+<div class="w">
+<h1>📜 똑똑 역사 퀴즈</h1>
+<div class="bub" id="bub"></div>
+<div id="app"></div>
+</div>
+<script>
+var D=[{"t":"먼 옛날과 고조선","q":[["우리나라 최초의 나라는?",["신라","고조선","고려","조선"],2],["고조선을 세운 사람은?",["단군왕검","세종대왕","이순신","왕건"],1],["단군 이야기에서 사람이 된 동물은?",["호랑이","곰","토끼","여우"],2],["곰이 사람이 되려고 먹은 것은?",["사과와 배","빵과 우유","쑥과 마늘","쌀과 김치"],3],["아주 먼 옛날 사람들이 사냥할 때 쓴 도구는?",["스마트폰","자동차","전기 톱","돌로 만든 도구"],4],["땅을 파고 만든 먼 옛날의 집은?",["아파트","움집","벽돌집","빌딩"],2],["개천절은 무엇을 기념하는 날일까요?",["한글을 만든 것","새해가 된 것","고조선이 세워진 것","광복을 맞은 것"],3],["개천절은 몇 월 며칠일까요?",["10월 3일","5월 5일","8월 15일","1월 1일"],1],["고인돌은 옛날 사람들의 무엇일까요?",["학교","시장","놀이터","무덤"],4],["먼 옛날 사람들이 불을 사용해서 좋아진 점은?",["전화를 할 수 있었다","음식을 익혀 먹을 수 있었다","비행기를 탈 수 있었다","게임을 할 수 있었다"],2]]},{"t":"삼국 시대","q":[["삼국 시대의 세 나라는?",["고조선·고려·조선","고구려·백제·신라","발해·고려·조선","가야·고려·신라"],2],["고구려를 세운 사람은?",["주몽","온조","박혁거세","왕건"],1],["백제를 세운 사람은?",["주몽","박혁거세","온조","이순신"],3],["신라를 세운 사람은?",["온조","박혁거세","주몽","대조영"],2],["신라의 박혁거세는 무엇에서 태어났다고 전해질까요?",["꽃","바위","알","나무"],3],["신라의 수도였던 도시는?",["부산","경주","대구","광주"],2],["별을 관찰하려고 신라 때 만든 건물은?",["남산타워","광화문","숭례문","첨성대"],4],["삼국 중 가장 북쪽에 있던 나라는?",["고구려","신라","백제","가야"],1],["삼국을 하나로 통일한 나라는?",["고구려","백제","신라","가야"],3],["삼국 시대에 낙동강 아래쪽에 있던 작은 나라는?",["발해","고조선","고려","가야"],4]]},{"t":"통일 신라와 고려","q":[["불국사와 석굴암이 있는 도시는?",["서울","경주","제주","인천"],2],["불국사와 석굴암은 어떤 종교와 관련이 있을까요?",["기독교","도교","불교","이슬람교"],3],["고구려 사람 대조영이 세운 나라는?",["가야","백제","신라","발해"],4],["고려를 세운 사람은?",["왕건","이성계","주몽","온조"],1],["고려의 수도였던 곳은?",["한양","경주","개경(개성)","평양"],3],["고려 때 만든 푸른빛 도자기는?",["옹기","고려청자","백자","유리병"],2],["고려 때 나무판에 불경을 새겨 만든 것은?",["훈민정음","팔만대장경","동의보감","대동여지도"],2],["서희 장군은 거란과의 큰 싸움을 어떻게 막았나요?",["거북선으로 싸웠다","도망쳤다","말로 이야기해서 막았다","한글로 편지를 썼다"],3],["'직지심체요절'은 무엇으로 찍어 만든 책일까요?",["연필","금속 활자","컴퓨터","볼펜"],2],["고려 다음에 세워진 나라는?",["신라","발해","백제","조선"],4]]},{"t":"세종대왕과 한글","q":[["서울의 옛날 이름은?",["경주","한양","개경","평양"],2],["한글을 만든 왕은?",["이순신","왕건","세종대왕","주몽"],3],["한글을 처음 만들었을 때의 이름은?",["한자","알파벳","영어","훈민정음"],4],["한글날은 몇 월 며칠일까요?",["10월 9일","3월 1일","8월 15일","5월 5일"],1],["세종대왕이 한글을 만든 까닭은?",["전쟁을 하려고","백성이 쉽게 글을 읽고 쓰게 하려고","집을 짓기 위해","게임을 만들려고"],2],["세종 때 장영실이 만든, 비가 온 양을 재는 도구는?",["나침반","망원경","측우기","선풍기"],3],["세종대왕이 그려진 지폐는 얼마짜리일까요?",["만 원","천 원","오천 원","오만 원"],1],["조선 시대 임금님이 살던 궁궐은?",["롯데타워","경복궁","63빌딩","국회의사당"],2],["우리나라 전통 옷은?",["양복","청바지","수영복","한복"],4],["조선을 세운 사람은?",["왕건","이성계","주몽","김유신"],2]]},{"t":"이순신과 옛날 인물","q":[["임진왜란 때 바다에서 일본을 물리친 장군은?",["강감찬","이순신","김유신","을지문덕"],2],["이순신 장군이 만든 거북 모양 배는?",["비행기","기차","거북선","오토바이"],3],["임진왜란은 어느 나라가 쳐들어온 전쟁일까요?",["미국","러시아","호주","일본"],4],["나라가 위험할 때 스스로 일어나 싸운 백성들은?",["화랑","상인","의병","학생"],3],["『동의보감』을 쓴 조선의 의사는?",["이순신","허준","세종대왕","김홍도"],2],["씨름하는 모습 등 서민의 생활을 그린 화가는?",["유관순","안중근","이순신","김홍도"],4],["천 원 지폐에 있는 조선의 학자는?",["세종대왕","이황","이순신","신사임당"],2],["오만 원 지폐 속 인물은?",["유관순","선덕여왕","신사임당","허난설헌"],3],["『대동여지도』를 만든 사람은?",["김정호","허준","이순신","세종대왕"],1],["이순신 장군이 일본군과 싸운 곳은?",["하늘","사막","우주","바다"],4]]},{"t":"옛날 생활과 명절","q":[["설날에 어른께 하는 인사는?",["악수","세배","손뼉","윙크"],2],["추석에 먹는 대표적인 떡은?",["피자","햄버거","송편","케이크"],3],["추석은 음력 몇 월 며칠일까요?",["음력 1월 1일","음력 5월 5일","음력 10월 3일","음력 8월 15일"],4],["설날에 먹는 떡국은 어떤 떡으로 끓일까요?",["가래떡","송편","시루떡","인절미"],1],["옛날 우리 집의 따뜻한 바닥 난방 장치는?",["에어컨","선풍기","온돌","냉장고"],3],["김치나 장을 담아 두던 큰 항아리는?",["종이컵","장독","유리컵","플라스틱 병"],2],["설날에 가족이 함께 하는 전통 놀이는?",["컴퓨터 게임","축구 경기","볼링","윷놀이"],4],["서울 경복궁의 정문 이름은?",["숭례문","광화문","돈화문","흥인지문"],2],["우리나라 전통 악기는?",["기타","피아노","장구","바이올린"],3],["김치를 만들 때 가장 많이 쓰는 채소는?",["배추","감자","바나나","초콜릿"],1]]},{"t":"나라 사랑과 우리나라","q":[["3월 1일은 무슨 날일까요?",["어린이날","한글날","삼일절","광복절"],3],["3·1 운동 때 사람들이 외친 말은?",["야호 신난다","대한 독립 만세","부자 되세요","새해 복 많이 받으세요"],2],["3·1 운동에 앞장선 소녀 독립운동가는?",["유관순","신사임당","선덕여왕","허난설헌"],1],["8월 15일은 무슨 날일까요?",["한글날","어린이날","광복절","개천절"],3],["광복은 무슨 뜻일까요?",["나라를 빼앗김","새 집을 지음","여행을 떠남","나라를 되찾아 다시 빛을 봄"],4],["우리나라 국기 이름은?",["태극기","하트기","별기","무지개기"],1],["우리나라 나라꽃은?",["장미","무궁화","튤립","해바라기"],2],["독도는 어느 바다에 있는 우리나라 땅일까요?",["서해","남해","동해","인도양"],3],["애국가는 어떤 노래일까요?",["생일 축하 노래","잠자는 노래","장난감 노래","나라를 사랑하는 노래"],4],["우리나라의 수도는?",["부산","서울","대구","광주"],2]]}];
+
+var cur=-1,sel=[],graded=false,best={};
+function $(i){return document.getElementById(i)}
+try{best=JSON.parse(localStorage.getItem("hq-best")||"{}")||{}}catch(e){best={}}
+function saveBest(){try{localStorage.setItem("hq-best",JSON.stringify(best))}catch(e){}}
+function say(t){$("bub").textContent="🐰 "+t}
+var NUM=["①","②","③","④"];
+
+function home(){
+  cur=-1;say("안녕! 며칠차 역사 문제를 풀어 볼까? 📚");
+  var h='<div class="days">';
+  D.forEach(function(d,i){
+    h+='<button class="day" data-day="'+i+'"><b>'+(i+1)+'일차</b><small>'+d.t+'</small>'+(best[i]!=null?'<span class="bd">🏅 최고 '+best[i]+'/10</span>':'<span class="bd" style="color:var(--mut)">도전해 봐요!</span>')+'</button>';
+  });
+  $("app").innerHTML=h+'</div>';
+}
+function openDay(i){
+  cur=i;sel=D[i].q.map(function(){return -1});graded=false;
+  say((i+1)+"일차 시작! 천천히 읽고 골라 봐 💪");drawDay();window.scrollTo(0,0);
+}
+function drawDay(){
+  var d=D[cur],h='<div class="top"><button class="back" data-a="home">← 목록</button><h2>'+(cur+1)+'일차 · '+d.t+'</h2></div>',score=0;
+  if(graded){
+    d.q.forEach(function(q,i){if(sel[i]===q[2]-1)score++});
+    var st=score>=9?"⭐⭐⭐":score>=7?"⭐⭐":score>=5?"⭐":"💪";
+    h+='<div class="sum"><div class="st">'+st+'</div><div class="sc">'+score+' / 10</div><div>'+(score===10?"만점이에요! 역사 박사! 🎉":score>=7?"아주 잘했어요! 👏":"틀린 문제를 다시 보면 더 잘할 수 있어요! 💖")+'</div><div class="row"><button data-a="again">🔁 다시 풀기</button><button data-a="home">📚 다른 날 풀기</button></div></div>';
+  }
+  d.q.forEach(function(q,i){
+    var ok=graded&&sel[i]===q[2]-1;
+    h+='<div class="card'+(graded?(ok?" ok":" no"):"")+'"><div class="qt">'+(i+1)+'. '+q[0]+'</div>';
+    q[1].forEach(function(o,j){
+      var c="opt";
+      if(graded){if(j===q[2]-1)c+=" right";else if(j===sel[i])c+=" wrong"}
+      else if(sel[i]===j)c+=" sel";
+      h+='<button class="'+c+'" data-q="'+i+'" data-o="'+j+'">'+NUM[j]+' '+o+'</button>';
+    });
+    if(graded)h+='<div class="res '+(ok?"ok":"no")+'">'+(ok?"⭕ 정답이에요!":"❌ 정답은 "+NUM[q[2]-1]+" "+q[1][q[2]-1]+" 이에요.")+'</div>';
+    h+='</div>';
+  });
+  if(!graded)h+='<button class="big" data-a="grade">✏️ 채점하기</button>';
+  $("app").innerHTML=h;
+}
+function grade(){
+  var un=sel.filter(function(x){return x<0}).length;
+  if(un&&!confirm("아직 안 푼 문제가 "+un+"개 있어요. 그래도 채점할까요?"))return;
+  graded=true;var s=0;D[cur].q.forEach(function(q,i){if(sel[i]===q[2]-1)s++});
+  if(best[cur]==null||s>best[cur]){best[cur]=s;saveBest()}
+  say(s===10?"와, 만점이야! 최고야! 🎉":s>=7?"정말 잘했어! 짝짝짝 👏":"괜찮아, 틀린 건 다시 보면 돼! 💪");
+  drawDay();window.scrollTo(0,0);
+}
+$("app").onclick=function(e){
+  var b=e.target.closest("button");if(!b)return;
+  var day=b.getAttribute("data-day"),a=b.getAttribute("data-a"),q=b.getAttribute("data-q");
+  if(day!==null){openDay(+day);return}
+  if(q!==null){if(graded)return;var y=window.scrollY;sel[+q]=+b.getAttribute("data-o");drawDay();window.scrollTo(0,y);return}
+  if(a==="home")home();else if(a==="again")openDay(cur);else if(a==="grade")grade();
+};
+home();
+</script>
+</body>
+</html>
